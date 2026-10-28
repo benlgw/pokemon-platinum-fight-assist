@@ -1,4 +1,3 @@
-from os import system, remove; system('clear||cls')
 from difflib import get_close_matches
 from typing import Literal
 
