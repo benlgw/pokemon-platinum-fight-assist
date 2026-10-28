@@ -28,7 +28,7 @@ def get_opponent_pokemon() -> list[str]:
     if check_duo_single:
         return check_duo_single
 
-def get_pokemon(fight: Literal["single", "duo", "duo_single"]) -> list[str]:
+def fight(fight: Literal["single", "duo", "duo_single"]) -> list[str]:
     if fight == "single":
         opponent_image_1 = grab(bbox=(5,195,330,255))
     elif fight == "duo":
