@@ -50,23 +50,27 @@ def fight(fight: Literal["single", "duo", "duo_single"]) -> list[str]:
     return opponent_1, opponent_2
 
 def ocr(file: str) -> Image:
-    config = r'--oem 3 --psm 8 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz. '
+    config_1 = r'--oem 3 --psm 8 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz. '
+    config_2 = r'--oem 3 --psm 7 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz. '
 
+    # Apply filter to image
     image = Image.open(file)
     image = image.convert('L').resize((image.width * 2, image.height * 2), Image.NEAREST)
     image = image.point(lambda x: 0 if x < 128 else 255, '1')
-    text = image_to_string(image, config = config).title().strip()
 
-    closest = get_close_matches(text, all_pokemon, n = 1, cutoff = 0.6)
-
+    closest = extract_text(image, config_1)
     if closest:
         return closest
 
-    config = r'--oem 3 --psm 7 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz. '
-    text = image_to_string(image, config = config).title().strip()
-    closest = get_close_matches(text, all_pokemon, n = 1, cutoff = 0.6)
+    closest = extract_text(image, config_2)
     if closest:
         return closest
+
+def extract_text(image, config):
+    text = image_to_string(image, config = config).title().strip()
+    closest = get_close_matches(text, all_pokemon, n = 1, cutoff = 0.6)
+    return closest
+
 
 if __name__ == '__main__':
     print(get_opponent_pokemon())
