@@ -1,9 +1,10 @@
 from os import system, remove; system('clear||cls')
+from difflib import get_close_matches
+from typing import Literal
 
+from PIL import Image
 from pyscreenshot import grab
 from pytesseract import image_to_string
-from PIL import Image
-from difflib import get_close_matches
 
 import pokemon_stats
 
@@ -27,32 +28,26 @@ def get_opponent_pokemon() -> list[str]:
     if check_duo_single:
         return check_duo_single
 
-def single() -> list[str]:
-    opponent_image = grab(bbox=(5,195,330,255))
-    opponent_image.save('opponent_1_name.png')
-    opponent = ocr('opponent_1_name.png')
-    # remove('opponent_1_name.png')
-    return opponent
+def get_pokemon(fight: Literal["single", "duo", "duo_single"]) -> list[str]:
+    if fight == "single":
+        opponent_image_1 = grab(bbox=(5,195,330,255))
+    elif fight == "duo":
+        opponent_image_1 = grab(bbox=(35,95,360,160))
+    elif fight == "duo_single":
+        opponent_image_1 = grab(bbox=(5,240,330,300))
 
-def duo() -> list[str]:
-    opponent_image_1 = grab(bbox=(35,95,360,160))
-    opponent_image_1.save('opponent_1_name.png')
-    opponent_1 = ocr('opponent_1_name.png')
-    # remove('opponent_1_name.png')
+    opponent_image_1.save("op_img_1.png")
+    opponent_1 = ocr("op_img_1.png")
 
-    opponent_image_2 = grab(bbox=(5,240,330,300))
-    opponent_image_2.save('opponent_2_name.png')
-    opponent_2 = ocr('opponent_2_name.png')
-    # remove('opponent_2_name.png')
+    if fight != "duo":
+        # remove('op_img_1.png')
+        return opponent_1
+
+    opponent_image_2 = grab(bbox=(35,95,360,160))
+    opponent_image_2.save('op_img_2.png')
+    opponent_2 = ocr("op_img_2.png")
 
     return opponent_1, opponent_2
-
-def duo_single() -> list[str]:
-    opponent_image = grab(bbox=(5,240,330,300))
-    opponent_image.save('opponent_1_name.png')
-    opponent = ocr('opponent_1_name.png')
-    # remove('opponent_1_name.png')
-    return opponent
 
 def ocr(file: str) -> Image:
     config = r'--oem 3 --psm 8 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz. '
