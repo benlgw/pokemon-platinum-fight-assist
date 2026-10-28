@@ -18,13 +18,13 @@ for pokemon in pokemon_stats.pokemon:
 # ---------------------------
 
 def get_opponent_pokemon() -> list[str]:
-    check_single = single()
+    check_single = fight("single")
     if check_single:
         return check_single
-    check_duo = duo()
+    check_duo = fight("duo")
     if check_duo:
         return check_duo
-    check_duo_single = duo_single()
+    check_duo_single = fight("duo_single")
     if check_duo_single:
         return check_duo_single
 
