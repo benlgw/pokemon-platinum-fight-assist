@@ -39,12 +39,13 @@ def fight(fight: Literal["single", "duo", "duo_single"]) -> list[str]:
     opponent_1 = ocr("op_img_1.png")
 
     if fight != "duo":
-        # remove('op_img_1.png')
+        # os.remove("op_img_1.png")
         return opponent_1
 
     opponent_image_2 = grab(bbox=(35,95,360,160))
     opponent_image_2.save('op_img_2.png')
     opponent_2 = ocr("op_img_2.png")
+    # os.remove("op_img_2.png")
 
     return opponent_1, opponent_2
 
