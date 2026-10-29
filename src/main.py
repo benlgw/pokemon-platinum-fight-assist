@@ -50,8 +50,9 @@ while True:
                         # weaknesses
                         print("\nWeaknesses: ", end="")
                         for weakness in enemy.get_weakness():
-                            print(f"| {weakness} | ", end="")
+                            print(f"| {weakness} | ", end="", )
                         # normal attacks i.e. not weakness, resistant, or immine
                         # not yet implemented
+                        print()  # require final print to flush stdout
                     else:
                         print("Pokemon not detected")
