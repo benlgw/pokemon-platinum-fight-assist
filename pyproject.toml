@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
+    "pandas>=3.1.0",
     "pillow>=12.2.0",
     "pygame>=2.6.1",
     "pyqt6>=6.11.0",

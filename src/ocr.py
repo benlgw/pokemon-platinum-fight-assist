@@ -1,10 +1,12 @@
 from difflib import get_close_matches
 from typing import Literal
 
+import pandas as pd
 from PIL import Image
 from pyscreenshot import grab
 from pytesseract import image_to_string
 
+all_pokemon = pd.read_csv("pokemon_names.csv", header = None)[0].tolist()
 
 def get_opponent_pokemon() -> list[str]:
     check_single = fight("single")
