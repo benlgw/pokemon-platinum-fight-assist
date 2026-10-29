@@ -1,10 +1,9 @@
-import pokemon_stats
 from os import system
 
 import pygame
 
 import ocr
-import pokemon_stats
+from poke_utils import Pokemon
 
 # --------------------
 
@@ -39,20 +38,20 @@ while True:
             if controller.get_button(11):  # Right Menu Button
                 system('clear||cls')
                 oponnent = ocr.get_opponent_pokemon()
-                # try:
                 for pokemon in oponnent:
-                    if pokemon == None:
-                        continue
-                    oponnent = pokemon_stats.pokemon[pokemon] if type(oponnent) == str else pokemon_stats.pokemon[pokemon[0]]
-                    print(f'Name: {oponnent['name'].upper()}')
-                    print(f'\nType: {oponnent['type']}')
-                    # for pokemon_type in oponnent['type']:
-                    #     print(f'{pokemon_type}')
-                    print(f'\nWeakness: {oponnent['weakness']}')
-                    # for pokemon_weakness in oponnent['weakness']:
-                    #     print(f'{pokemon_weakness}')
-                    print(f'\nNormal: {oponnent['normal_attack']}')
-                    # print(f'\nInnefective: {oponnent['innefective']}')
-                    # print(f'\nImmune: {oponnent['immune']}')
-                # except:
-                #     print(f'Pokemon Not Detected (Recieved: {oponnent})')
+                    enemy = Pokemon(pokemon)
+                    if enemy.exists():
+                        # name
+                        print(f"Name: {enemy.get_name().upper()}")
+                        # type
+                        print("\nType: ", end="")
+                        for type in enemy.get_types():
+                            print(f"| {type} | ", end="")
+                        # weaknesses
+                        print("\nWeaknesses: ", end="")
+                        for weakness in enemy.get_weakness():
+                            print(f"| {weakness} | ", end="")
+                        # normal attacks i.e. not weakness, resistant, or immine
+                        # not yet implemented
+                    else:
+                        print("Pokemon not detected")

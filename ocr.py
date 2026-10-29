@@ -5,16 +5,6 @@ from PIL import Image
 from pyscreenshot import grab
 from pytesseract import image_to_string
 
-import pokemon_stats
-
-# --------------------------
-
-all_pokemon = []
-
-for pokemon in pokemon_stats.pokemon:
-    all_pokemon.append(pokemon)
-
-# ---------------------------
 
 def get_opponent_pokemon() -> list[str]:
     check_single = fight("single")

@@ -10,4 +10,5 @@ dependencies = [
     "pyqt6>=6.11.0",
     "pyscreenshot>=3.1",
     "pytesseract>=0.3.13",
+    "requests>=2.34.2",
 ]
